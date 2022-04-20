@@ -30,6 +30,8 @@ export default {
     methods: {
         doLogout(){
             localStorage.removeItem("user_token")
+            localStorage.removeItem("user_id")
+            localStorage.removeItem("name")
             this.flag = false
             this.$router.push("/login")
         },

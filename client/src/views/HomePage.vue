@@ -16,7 +16,7 @@
             <DestinationCard 
             v-for="destination in allDestination" 
             :destination="destination"
-            
+
             ></DestinationCard>
         </div>
     </div>
@@ -83,9 +83,8 @@
             //     }
             // }
         },
-        mounted(){
+        created(){
             this.getDestination()
-            
         }
     }
 </script>
