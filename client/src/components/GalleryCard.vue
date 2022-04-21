@@ -2,7 +2,7 @@
 <div class="flex justify-center">
         <div class="rounded-lg shadow-lg bg-white max-w-sm">
             <a href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                <img class="rounded-t-lg h-48" :src="`https://malaban-itinerary.herokuapp.com${item.imageUrl}`" alt="" />
+                <img class="rounded-t-lg h-48" :src="`http://localhost:3000${item.imageUrl}`" alt="" />
             </a>
             <div class="p-6 text-center">
                 <h5 class="text-gray-900 text-2xl font-medium mb-2 text">{{item.captions}}</h5>
