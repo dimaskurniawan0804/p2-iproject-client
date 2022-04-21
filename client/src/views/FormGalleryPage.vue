@@ -58,27 +58,6 @@ export default {
             onFileSelected(event) {
             console.log(event);
             this.selectedFile = event.target.files[0]
-            // console.log(this.selectedFile);
-            // const fd = new FormData()
-            // fd.append('image', this.selectedFile, this.selectedFile.name)
-            // try {
-            //     console.log('aaa');
-            //     console.log(localStorage.getItem("user_token"));
-            //     const response = await axios({
-            //         url: "gallery/post",
-            //         method: "POST",
-            //         headers: {
-            //             access_token: localStorage.getItem("user_token")
-            //         },
-            //         data: {
-            //             image: fd,
-            //             location: this.location
-            //         }
-            //     })
-            //     console.log(response, "<<<<,");
-            // } catch (error) {
-            //     console.log(error)
-            // }
         },
         async onUpload(){
             const fd = new FormData()
@@ -97,10 +76,32 @@ export default {
                     data: fd
                     
                 })
-                console.log(response, "<<<<,");
+                this.$swal({
+                        title: "Login Success",
+                        html: `Success to add picture to gallery` ,
+                        icon: "success",
+                    })
+                this.$router.push('/gallery')
             } catch (error) {
-                console.log(error)
+                this.showError(error.response.data.message)
             }
+        },
+        async showError(error) {
+                let errorData;
+                if (Array.isArray(error)) {
+                    let errDisplay = ''
+                    error.forEach(el => {
+                        errDisplay += el + '<br>'
+                    })
+                    errorData = errDisplay
+                } else {
+                    errorData = error
+                }
+                this.$swal({
+                    title: "Error Validation!",
+                    html: errorData,
+                    icon: "error",
+                });
         },
         backToGallery(){
             this.$router.push('/gallery')

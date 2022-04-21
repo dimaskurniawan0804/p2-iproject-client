@@ -9,6 +9,7 @@
                 <h1>{{item.location}}</h1>
                 <div class="flex justify-evenly mt-5">
                     <button type="button"
+                        @click.prevent="doDelete(item.id)"
                         style="background-color:#4D4C7D ;"
                         class=" w-28 inline-block px-6 py-2.5  text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                         Remove
@@ -20,8 +21,21 @@
 </template>
 
 <script>
+import { mapActions } from "pinia"
+import { useGalleryStore } from "../stores/galleryStore"
 export default {
-    props: ["item"]
+    props: ["item"],
+    methods:{
+        ...mapActions(useGalleryStore,["removeGallery"]),
+        async doDelete(id){
+            try {
+                await this.removeGallery(id)
+                this.$router.push('/gallery')
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
 }
 </script>
 

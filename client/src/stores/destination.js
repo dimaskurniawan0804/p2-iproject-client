@@ -70,6 +70,16 @@ export const useDestinationStore = defineStore({
                     access_token: localStorage.getItem('user_token')
                 }
             })
+        },
+        removeItinerary(id) {
+            console.log(id, "<<<<<<<");
+            return axios({
+                url: `cusdest/delete/${id}`,
+                method: "DELETE",
+                headers: {
+                    access_token: localStorage.getItem("user_token")
+                }
+            })
         }
     }
 

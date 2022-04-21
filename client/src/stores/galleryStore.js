@@ -38,6 +38,16 @@ export const useGalleryStore = defineStore({
             } catch (error) {
                 console.log(error)
             }
+        },
+        removeGallery(id) {
+            console.log(id);
+            return axios({
+                url: `gallery/delete/${id}`,
+                method: "DELETE",
+                headers: {
+                    access_token: localStorage.getItem("user_token")
+                }
+            })
         }
     }
 

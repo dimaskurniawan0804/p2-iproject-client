@@ -9,6 +9,7 @@
                 <h1>{{item.location}}</h1>
                 <div class="flex justify-evenly mt-5">
                     <button type="button"
+                        @click.prevent="doRemove(item.itineraryId)"
                         style="background-color:#4D4C7D ;"
                         class=" w-28 inline-block px-6 py-2.5  text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                         Remove
@@ -29,7 +30,18 @@ import {
         useDestinationStore
     } from "../stores/destination"
 export default{
-    props: ["item"]
+    props: ["item"],
+    methods: {
+        ...mapActions(useDestinationStore,["removeItinerary"]),
+        async doRemove(id){
+            try {
+                await this.removeItinerary(id)
+                this.$router.push("/itinerary")
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
 }
 </script>
 

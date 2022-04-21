@@ -65,14 +65,38 @@
                     localStorage.setItem("user_id", response.data.id)
                     localStorage.setItem("user_token", response.data.access_token)
                     localStorage.setItem("name", response.data.fullName)
+                    this.$swal({
+                        title: "Login Success",
+                        html: `Holla,${localStorage.getItem("name")}` +
+                            "<br>" +
+                            `Wellcome to Malaban Itinerary`,
+                        icon: "success",
+                    })
                     this.$router.push("/")
                 } catch (error) {
-                    console.log(error);
+                    this.showError(error.response.data.message)
                 }
             },
             toRegisterPage() {
                 this.$router.push("/register")
-            }
+            },
+            async showError(error) {
+                let errorData;
+                if (Array.isArray(error)) {
+                    let errDisplay = ''
+                    error.forEach(el => {
+                        errDisplay += el + '<br>'
+                    })
+                    errorData = errDisplay
+                } else {
+                    errorData = error
+                }
+                this.$swal({
+                    title: "Error Validation!",
+                    html: errorData,
+                    icon: "error",
+                });
+            },
         },
     }
 </script>

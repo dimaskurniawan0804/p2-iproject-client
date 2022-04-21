@@ -87,10 +87,34 @@ export default {
                 address: this.address,
             })
                 this.$router.push('/login')
+                this.$swal({
+                    title: "Register Success",
+                    html: `Register Success` +
+                            "<br>" +
+                            `Please check your email`,
+                    icon: "success",
+                })
             } catch (error) {
-                console.log(error);
+                this.showError(error.response.data.message)
             }
-        }
+        },
+        async showError(error) {
+                let errorData;
+                if (Array.isArray(error)) {
+                    let errDisplay = ''
+                    error.forEach(el => {
+                        errDisplay += el + '<br>'
+                    })
+                    errorData = errDisplay
+                } else {
+                    errorData = error
+                }
+                this.$swal({
+                    title: "Error Validation!",
+                    html: errorData,
+                    icon: "error",
+                });
+            },
     }
 }
 </script>
