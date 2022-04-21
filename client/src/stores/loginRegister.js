@@ -3,12 +3,6 @@ import axios from "../../axios/axios"
 
 export const useLoginRegisterStore = defineStore({
     id: "loginRegister",
-    state: () => ({
-
-    }),
-    getters: {
-
-    },
     actions: {
         doLogin(data) {
             console.log(data);

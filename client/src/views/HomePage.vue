@@ -7,7 +7,7 @@
         <button type="submit" @click.prevent="hitUpload">Submit</button>
     </form> -->
     <Navbar></Navbar>
-    <div style="background-color: #E9D5DA;" class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div style="background-color: #E9D5DA;" class="h-screen max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 class="text-4xl tracking-widest text-black text-center uppercase">
             <span class="block">Wellcome,{{userName}} </span>
         </h2>
@@ -28,7 +28,7 @@
     import Navbar from "../components/Navbar.vue"
     import DestinationCard from "../components/CardDestination.vue"
     import {
-        mapActions
+        mapActions, mapWritableState
     } from "pinia"
     import {
         useDestinationStore
@@ -44,8 +44,11 @@
                 location: "",
                 selectedFile: null,
                 userName : localStorage.getItem("name"),
-                allDestination : []
+                
             }
+        },
+        computed:{
+            ...mapWritableState(useDestinationStore,["allDestination"])
         },
         methods: {
             ...mapActions(useDestinationStore, ["fetchAllDestination"]),
@@ -55,33 +58,14 @@
 
             },
             async getDestination(){
-                const response = await this.fetchAllDestination()
-                this.allDestination = response.data
-                console.log(this.allDestination,"<<<<<<<");
+                try {
+                    const response = await this.fetchAllDestination()
+                    console.log(response)
+                    this.allDestination = response.data
+                } catch (error) {
+                    console.log(error);
+                }
             },
-            // async hitUpload(){
-            //     console.log(this.selectedFile);
-            //     const fd = new FormData()
-            //     fd.append('image',this.selectedFile,this.selectedFile.name)
-            //     try {
-            //         console.log('aaa');
-            //         console.log(localStorage.getItem("user_token"));
-            //         const response = await axios({
-            //         url: "gallery/post",
-            //         method: "POST",
-            //         headers: {
-            //             access_token : localStorage.getItem("user_token")
-            //         },
-            //         data: {
-            //             image: fd,
-            //             location: this.location
-            //         }
-            //     })
-            //     console.log(response,"<<<<,");
-            //     } catch (error) {
-            //         console.log(error)
-            //     }
-            // }
         },
         created(){
             this.getDestination()

@@ -23,7 +23,7 @@
                     
                 </div>
                 <div class="flex justify-center">
-                <button @click.prevent="backHome" style="background-color: #827397;" type="button" class="rounded-md mb-5 p-4 font-semibold">Back To Home</button>
+                <button @click.prevent="backHome" style="background-color: #4D4C7D;" type="button" class="rounded-md mb-5 p-4 font-semibold text-white">Back To Home</button>
                 </div>
             </div>
         </div>

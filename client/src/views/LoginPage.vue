@@ -55,6 +55,7 @@
         methods: {
             ...mapActions(useLoginRegisterStore, ["doLogin"]),
             async hitLogin() {
+                console.log("masuk login ============")
                 try {
                     const response = await this.doLogin({
                         email: this.email,

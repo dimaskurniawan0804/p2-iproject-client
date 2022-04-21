@@ -6,8 +6,9 @@
             </div>
             <div class="hidden sm:block sm:ml-6 mr-5">
                 <div class="flex space-x-4 align-middle">
-                    <a href="#" class="text-white opacity-80 text-md uppercase hover:opacity-100 px-3 py-2">Home</a>
-                    <a href="#" class="text-white opacity-80 text-md uppercase hover:opacity-100 px-3 py-2">My Itinerary</a>
+                    <a @click.prevent="toHome" href="#" class="text-white opacity-80 text-md uppercase hover:opacity-100 px-3 py-2">Home</a>
+                    <a @click.prevent="toGallery" href="#" class="text-white opacity-80 text-md uppercase hover:opacity-100 px-3 py-2">Gallery</a>
+                    <a @click.prevent="toMyItinerary" href="#" class="text-white opacity-80 text-md uppercase hover:opacity-100 px-3 py-2">My Itinerary</a>
                     <a v-if="flag === true" href="#" class="text-white opacity-80 text-md uppercase hover:opacity-100 px-3 py-2" @click.prevent="doLogout"
                     >Logout
                     </a>
@@ -20,7 +21,9 @@
     </nav>
 </template>
 
-<script>
+<script>import { mapActions } from "pinia"
+import { useDestinationStore } from "../stores/destination"
+
 export default {
     data(){
         return{
@@ -28,6 +31,17 @@ export default {
         }
     },
     methods: {
+        ...mapActions(useDestinationStore,["getMyItinerary"]),
+        toGallery(){
+            this.$router.push('/gallery')
+        },
+        toHome(){
+            this.$router.push('/')
+        },
+        toMyItinerary(){
+            this.getMyItinerary()
+            this.$router.push('/itinerary')
+        },
         doLogout(){
             localStorage.removeItem("user_token")
             localStorage.removeItem("user_id")
